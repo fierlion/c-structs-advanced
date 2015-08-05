@@ -19,14 +19,28 @@ void destroy_int(void *intIn) {
 int main(int argc, char* argv[]) {
   int *five = create_int(5);
   int *six = create_int(6);
-  printf("%d\n", *five);
+  int *temp = malloc(sizeof(int));
+  void *voidtemp = (void*)temp;
   List *fives = (List *)malloc(sizeof(List));
+  //test list_init
   list_init(fives, &destroy_int);
+  //test list_add
   list_ins_next(fives, NULL, five);
+  printf("after add, list size: %d\n", list_size(fives));
   list_ins_next(fives, list_tail(fives), six);
+  printf("after add, list size: %d\n", list_size(fives));
+  //test list elements
   ListElmt *iterator = (ListElmt *)malloc(sizeof(ListElmt));
   iterator = list_head(fives);
-  printf("%d\n", *(int*)list_data(iterator));
+  printf("iterator list data (0): %d\n", *(int*)list_data(iterator));
   iterator = iterator->next;
-  printf("%d\n", *(int*)list_data(iterator));
+  printf("iterator list data (1): %d\n", *(int*)list_data(iterator));
+  iterator = list_head(fives);
+  //test remove next
+  list_rem_next(fives, list_head(fives), voidtemp);
+  printf("after remove, list size: %d\n", list_size(fives));
+  //test remove from head
+  list_rem_next(fives, NULL, voidtemp);
+  printf("after remove head, list size: %d\n", list_size(fives));
+
 }
