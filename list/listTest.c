@@ -42,5 +42,6 @@ int main(int argc, char* argv[]) {
   //test remove from head
   list_rem_next(fives, NULL, voidtemp);
   printf("after remove head, list size: %d\n", list_size(fives));
-
+  // test list destroy
+  list_destroy(fives);
 }
