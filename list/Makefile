@@ -1,6 +1,6 @@
 P=listTest
 OBJECTS=
-CFLAGS= -g -Wall -O3
+CFLAGS= -g -O3 -Wall
 LDLIBS=
 CC=c99
 
