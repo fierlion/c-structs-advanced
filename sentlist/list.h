@@ -13,11 +13,11 @@ typedef struct List_ {
   int (*match)(const void *key1, const void *key2);
   int (*destroy)(void *data);
   ListElmt *head;
-  ListElmt *tail;
 } List;
 
 void list_init(List *list);
 void list_destroy(List *list);
+int list_ins_front(List *list, const void *data);
 int list_ins_next(List *list, ListElmt *element, const void *data);
 int list_rem_next(List *list, void **data);
 #define list_size(list) ((list)->size)
