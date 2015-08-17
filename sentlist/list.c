@@ -15,5 +15,15 @@ int list_ins_front(List *list, const void *data) {
     new->data = (void *)data;
     new->next = list->head->next;
     list->head->next = new;
+    list->size += 1;
+    return 0;
+}
+
+int list_ins_next(List *list, ListElmt *element, const void *data) {
+    ListElmt *new = malloc(sizeof(ListElmt));
+    new->data = (void *)data;
+    new->next = element->next;
+    element->next = new;
+    list->size += 1;
     return 0;
 }
