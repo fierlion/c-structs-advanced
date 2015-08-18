@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include "list.h"
 
-void list_init(List *list) {
+void list_init(List *list, void (*destroy)(void *data)) {
     list->size = 0;
+    list->destroy = destroy;
     ListElmt *head = malloc(sizeof(ListElmt));
     head->next = NULL;
     head->data = NULL;
@@ -26,4 +27,17 @@ int list_ins_next(List *list, ListElmt *element, const void *data) {
     element->next = new;
     list->size += 1;
     return 0;
+}
+
+int list_rem_next(List *list, ListElmt *element, void **temp) {
+   if (elem_next(element) == NULL) {
+       return -1;
+   }
+   ListElmt *old_element;
+   *temp = element->next->data;
+   old_element = element->next;
+   element->next = element->next->next;
+   free(old_element);
+   list->size -= 1;
+   return 0;
 }

@@ -9,9 +9,17 @@ void print_list(List *list) {
     }
 }
 
+void destroy_int(void *intIn) {
+  free((int*)intIn);
+}
+
 int main() {
     List *list1 = malloc(sizeof(List));
-    list_init(list1);
+    printf("test list_init\n");
+    list_init(list1, &destroy_int);
+    printf("list_init success\n");
+
+    printf("test list_ins_front\n");
     int *five = malloc(sizeof(int));
     int *four = malloc(sizeof(int));
     int *three = malloc(sizeof(int));
@@ -22,6 +30,8 @@ int main() {
     list_ins_front(list1, four);
     list_ins_front(list1, three);
     print_list(list1);
+
+    printf("test list_ins_next\n");
     int *two = malloc(sizeof(int));
     int *one = malloc(sizeof(int));
     *two = 2;
@@ -34,6 +44,11 @@ int main() {
     }
     list_ins_next(list1, go_to_end, one);
     print_list(list1);
-    printf("list size after add next: %d\n", list1->size);
 
+    printf("test list_rem_next\n");
+    void *tempvar = malloc(sizeof(int));
+    list_rem_next(list1, list_head(list1), tempvar);
+    list1->destroy(tempvar);
+    print_list(list1);
+    
 }
