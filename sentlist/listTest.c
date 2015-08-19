@@ -14,30 +14,34 @@ void destroy_int(void *intIn) {
 }
 
 int main() {
+    // setup
     List *list1 = malloc(sizeof(List));
+    int *five = malloc(sizeof(int));
+    int *four = malloc(sizeof(int));
+    int *three = malloc(sizeof(int));
+    int *two = malloc(sizeof(int));
+    int *one = malloc(sizeof(int));
+    ListElmt *go_to_end = malloc(sizeof(ListElmt));
+    void *tempvar = malloc(sizeof(int));
+
     printf("test list_init\n");
     list_init(list1, &destroy_int);
     printf("list_init success\n");
 
-    printf("test list_ins_front\n");
-    int *five = malloc(sizeof(int));
-    int *four = malloc(sizeof(int));
-    int *three = malloc(sizeof(int));
     *five = 5;
     *four = 4;
     *three = 3;
+    printf("test list_ins_front\n");
     list_ins_front(list1, five);
     list_ins_front(list1, four);
     list_ins_front(list1, three);
     print_list(list1);
-
     printf("test list_ins_next\n");
-    int *two = malloc(sizeof(int));
-    int *one = malloc(sizeof(int));
+
     *two = 2;
     *one = 1;
     list_ins_next(list1, list_head(list1), two);
-    ListElmt *go_to_end = malloc(sizeof(ListElmt));
+
     go_to_end = list_head(list1);
     while(go_to_end->next != NULL) {
         go_to_end = go_to_end->next;
@@ -46,9 +50,24 @@ int main() {
     print_list(list1);
 
     printf("test list_rem_next\n");
-    void *tempvar = malloc(sizeof(int));
     list_rem_next(list1, list_head(list1), tempvar);
     list1->destroy(tempvar);
     print_list(list1);
-    
+
+    printf("test list destroy\n");
+    list_destroy(list1);
+    print_list(list1);
+    printf("list size: %d\n", list_size(list1));
+
+    // clean up
+    free(tempvar);
+    //free(go_to_end);
+    free(one);
+    free(two);
+    // the following are freed by list_destroy
+    // free(three);
+    // free(four);
+    // free(five);
+    free(list1);
+
 }

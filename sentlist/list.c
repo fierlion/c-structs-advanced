@@ -11,6 +11,14 @@ void list_init(List *list, void (*destroy)(void *data)) {
     list->head = head;
 }
 
+void list_destroy(List *list) {
+    void *data;
+    while(list_size(list) > 0) {
+        list_rem_next(list, list_head(list), (void **)&data);
+        list->destroy(data);
+    }
+}
+
 int list_ins_front(List *list, const void *data) {
     ListElmt *new = malloc(sizeof(ListElmt));
     new->data = (void *)data;
