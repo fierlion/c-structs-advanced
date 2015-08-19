@@ -69,5 +69,4 @@ int main() {
     // free(four);
     // free(five);
     free(list1);
-
 }
