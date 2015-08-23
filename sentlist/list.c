@@ -17,6 +17,7 @@ void list_destroy(List *list) {
         list_rem_next(list, list_head(list), (void **)&data);
         list->destroy(data);
     }
+    free(list_head(list));
 }
 
 int list_ins_front(List *list, const void *data) {
@@ -25,6 +26,7 @@ int list_ins_front(List *list, const void *data) {
     new->next = list->head->next;
     list->head->next = new;
     list->size += 1;
+    free(new);
     return 0;
 }
 
@@ -34,6 +36,7 @@ int list_ins_next(List *list, ListElmt *element, const void *data) {
     new->next = element->next;
     element->next = new;
     list->size += 1;
+    free(new);
     return 0;
 }
 
