@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "list.h"
 
 void list_init(List *list, void (*destroy)(void *data)) {
@@ -28,7 +26,6 @@ int list_ins_front(List *list, const void *data) {
     new->next = list->head->next;
     list->head->next = new;
     list->size += 1;
-    free(new);
     return 0;
 }
 
@@ -39,7 +36,6 @@ int list_ins_next(List *list, ListElmt *element, const void *data) {
     new->next = element->next;
     element->next = new;
     list->size += 1;
-    free(new);
     return 0;
 }
 
@@ -54,4 +50,14 @@ int list_rem_next(List *list, ListElmt *element, void **temp) {
    free(old_element);
    list->size -= 1;
    return 0;
+}
+
+void print_list(List *list) {
+    ListElmt *iterator = list_head(list)->next;
+    printf("[ ");
+    while (iterator != NULL) {
+        printf("%d ", *(int*)iterator->data);
+        iterator = iterator->next;
+    }
+    printf("]\n");
 }

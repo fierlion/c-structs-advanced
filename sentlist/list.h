@@ -2,6 +2,8 @@
 #define LIST_H
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 typedef struct ListElmt_ {
   void *data;
@@ -20,6 +22,7 @@ void list_destroy(List *list);
 int list_ins_front(List *list, const void *data);
 int list_ins_next(List *list, ListElmt *element, const void *data);
 int list_rem_next(List *list, ListElmt *element, void **data);
+void print_list(List *list);
 #define list_size(list) ((list)->size)
 #define list_head(list) ((list)->head)
 #define list_tail(list) ((list)->tail)
