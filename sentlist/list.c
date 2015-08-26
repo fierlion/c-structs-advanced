@@ -6,6 +6,7 @@ void list_init(List *list, void (*destroy)(void *data)) {
     list->size = 0;
     list->destroy = destroy;
     ListElmt *head = malloc(sizeof(ListElmt));
+    memset(head, 0, sizeof(ListElmt));
     head->next = NULL;
     head->data = NULL;
     list->head = head;
@@ -22,6 +23,7 @@ void list_destroy(List *list) {
 
 int list_ins_front(List *list, const void *data) {
     ListElmt *new = malloc(sizeof(ListElmt));
+    memset(new, 0, sizeof(ListElmt));
     new->data = (void *)data;
     new->next = list->head->next;
     list->head->next = new;
@@ -32,6 +34,7 @@ int list_ins_front(List *list, const void *data) {
 
 int list_ins_next(List *list, ListElmt *element, const void *data) {
     ListElmt *new = malloc(sizeof(ListElmt));
+    memset(new, 0, sizeof(ListElmt));
     new->data = (void *)data;
     new->next = element->next;
     element->next = new;

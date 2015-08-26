@@ -1,3 +1,4 @@
+#include <string.h>
 #include "list.c"
 
 void print_list(List *list) {
@@ -9,6 +10,15 @@ void print_list(List *list) {
     }
 }
 
+int *create_int(int intIn) {
+  int *intOut;
+  intOut = malloc(sizeof(int));
+  // intialize for valgrind happy
+  memset(intOut, 0, sizeof(int));
+  *intOut = intIn;
+  return(intOut);
+}
+
 void destroy_int(void *intIn) {
   free((int*)intIn);
 }
@@ -16,7 +26,8 @@ void destroy_int(void *intIn) {
 int main() {
     // setup
     List *list1 = malloc(sizeof(List));
-    int *five = malloc(sizeof(int));
+    memset(list1, 0, sizeof(List));
+    int *five = create_int(5);
     // int *four = malloc(sizeof(int));
     // int *three = malloc(sizeof(int));
     // int *two = malloc(sizeof(int));
@@ -26,16 +37,14 @@ int main() {
 
     printf("test list_init\n");
     list_init(list1, &destroy_int);
-    printf("list_init success\n");
 
-    *five = 5;
     // *four = 4;
     // *three = 3;
-    printf("test list_ins_front\n");
+    // printf("test list_ins_front\n");
     // list_ins_front(list1, five);
     // list_ins_front(list1, four);
     // list_ins_front(list1, three);
-    print_list(list1);
+    // print_list(list1);
     // printf("test list_ins_next\n");
     //
     // *two = 2;
@@ -56,8 +65,8 @@ int main() {
     //
     printf("test list destroy\n");
     list_destroy(list1);
-    print_list(list1);
-    printf("list size: %d\n", list_size(list1));
+    // print_list(list1);
+    // printf("list size: %d\n", list_size(list1));
     //
     // // clean up
     // free(tempvar);
@@ -67,6 +76,6 @@ int main() {
     // // // the following are freed by list_destroy
     // free(three);
     // free(four);
-    free(five);
+    list1->destroy(five);
     free(list1);
 }
