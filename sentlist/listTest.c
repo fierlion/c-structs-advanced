@@ -23,7 +23,7 @@ int main() {
     int *two = create_int(2);
     int *one = create_int(1);
     ListElmt *go_to_end;
-    void *tempvar = malloc(sizeof(int));
+    // void *tempvar = malloc(sizeof(int));
 
     printf("test list_init\n");
     list_init(list1, &destroy_int);
@@ -44,17 +44,17 @@ int main() {
     list_ins_next(list1, go_to_end, one);
     print_list(list1);
 
-    printf("test list_rem_next\n");
+    // printf("test list_rem_next\n");
     // list_rem_next(list1, list_head(list1), tempvar);
     // list1->destroy(tempvar);
-    print_list(list1);
+    // print_list(list1);
 
     printf("test list destroy\n");
     list_destroy(list1);
-    print_list(list1);
+    // print_list(list1);
     printf("list size: %d\n", list_size(list1));
 
     // clean up
-    free(tempvar);
+    // free(tempvar);
     free(list1);
 }
