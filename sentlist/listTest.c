@@ -1,9 +1,7 @@
 #include "list.c"
 
 int *create_int(int intIn) {
-  int *intOut;
-  intOut = malloc(sizeof(int));
-  // intialize for valgrind happy
+  int *intOut = malloc(sizeof(int));
   memset(intOut, 0, sizeof(int));
   *intOut = intIn;
   return(intOut);
