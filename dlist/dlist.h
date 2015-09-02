@@ -5,23 +5,24 @@
 
 typedef struct DListElmt_ {
   void *data;
-  DListElmt_ *prev;
-  DListElmt_ *next;
+  struct DListElmt_ *prev;
+  struct DListElmt_ *next;
 } DListElmt;
 
 typedef struct DList_ {
   int size;
-  // can be used for sets, priority queues
-  // int (*match)(const void *key1, const void *key2);
-  void (*destroy)(void *data);
   DListElmt *head;
   DListElmt *tail;
+  void (*destroy)(void *data);
+  int (*match)(const void *key1, const void *key2);
 } DList;
 
 void dlist_init(DList *list, void (*destroy)(void *data));
-void dlist_destroy(DList *list);
 int dlist_ins_next(DList *list, DListElmt *element, const void *data);
 int dlist_ins_prev(DList *list, DListElmt *element, const void *data);
-int dlist_remove(DList *list, DListElmt *element, void **data);
+int dlist_remove(DList *list, DListElmt *elmt);
+void dlist_destroy(DList *list);
+#define dlist_head(list) ((list)->head)
+#define dlist_tail(list) ((list)->tail)
 
 #endif
