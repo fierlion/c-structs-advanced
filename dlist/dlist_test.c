@@ -1,6 +1,8 @@
 #include <glib.h>
+#include <string.h>
 #include "dlist.c"
 
+// note glib-2.0 is difficult to link in OSX
 int *create_int(int data) {
   int *value = malloc(sizeof(data));
   memset(value, 0, sizeof(data));
